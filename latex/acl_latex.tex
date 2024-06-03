@@ -111,117 +111,21 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-.....
+    .....
 \end{abstract}
 
-\section{Introduction}
-
-
-\begin{itemize}
-    \item The importance of plasticity in deep learning.
-    \item Application of that in real world , etc 
-    \item Overall categorization of what the literature did : their questions and solutions 
-    \item What is the gap here
-    \item what we did
-    \item Our contribution
-\end{itemize}
-
-
-
-\section{Related Work}
-
-We
-
-\section{What is plasticity and how to measure that}
-
-~ Half page write-up
-\begin{itemize}
-    \item Explain the literature and their evaluation metrics (as Eq?)
-    \item Explain what we would consider
-    \item Methods to reduce LoP - l2 reg, layer norm, crelu etc.
-\end{itemize}
-
-
-Example exp:
-\begin{itemize}
-    \item the following CIFAR10 exp shows loss of plasticity when ... 
-    \item Show lop in terms of evaluation metric 
-    \item Show how methods like L2, layer norm help reduce LoP.
-\end{itemize}
-
-
+\input{sections/0_intro.tex}
+\input{sections/1_related_work.tex}
+\input{sections/2_background.tex}
+\input{sections/3_experiments.tex}
+\input{sections/4_discussion.tex}
 % \subsection{Plasticity in NLP}
-
 % \subsection{Plasticity in self-attention networks}
-
-\section{Experiments}
-
-\subsection{Setup}
-List all:
-\begin{itemize}
-    \item What is the datasets,
-    \item  models, 
-    \item CL setup: number of tasks, 
-    \item optimizers, hyper-param setup (details about the grid search over lr). 
-    \item Random label ( 100\%, 50\%, 20\%)
-\end{itemize}
-Also, mention why did you choose this particular setup.
-
-
-\subsection{Results with Transformer (default setup)}
-
-pretrain model, 
-
-\subsubsection{Effect of pre-training - pre trained bert}
-\begin{itemize}
-    \item Bert Model (pre-trained and no-pretrained)
-    \item is that because of pretrained and non-pretrained
-    \item is that because of transformers?
-    % \item is that because of scale?
-\end{itemize}
- % --- is that because of pretrained and non-pretrained 
-
- % --- is that because of transformers
-
-\subsection{Ablations/Intervention/Analysis}
-
-\subsubsection{Experiments for other type of networks: CNN, LSTM}
-\begin{itemize}
-    \item CNN on NLP results. Is there plasticity loss?
-    \item LSTM on NLP results. Is there plasticity loss?
-\end{itemize}
-
-\subsection{Comparison with vision}
-
-??? 
-
-
-\subsubsection{self-attention vs MLP}
-\begin{itemize}
-    \item Self Attention Layer (Embedding + Multi-head Attention layer + Classifier)
-    \item Self Attention Layer  with Residual Layer
-    \item Bert Layer( Layer Norm and dropout)
-\end{itemize}
-
-
-
-
-
-\section{Discussion and Future Works}
-
-
-\section{Conclusion}
-
 % Bibliography entries for the entire Anthology, followed by custom entries
 %\bibliography{anthology,custom}
 % Custom bibliography entries only
 \bibliography{custom}
-
 \appendix
-
-\section{Example Appendix}
-\label{sec:appendix}
-
-This is an appendix.
+\input{sections/9_appendix.tex}
 
 \end{document}
