@@ -1,13 +1,35 @@
 \section{Experiments}
 
 \subsection{Setup}
-List all:
+
+We consider five different NLP datasets. They are ``ag news'', ``dbpedia'', ``yahoo answers'', ``amazon review'', ``amazon review''(see appendix~\ref{} for details of the datasets).  Our continual learning setup comprises of two type of tasks, 1-Individual task-shuffled label, 2-Sequential datasets.
+
+\paragraph{Individual task-shuffled label:}
+% In this type of the continual learning, we consider each individual dataset separately. This is corresponding to shuffled label in vision tasks~\cite{}. For each of them, we define a sequence of tasks as a sequence of new label assignment. Basically, for the given dataset, we permute the labels for the first task, then the model will learn it. Then for the second task we use the same dataset and permute its label and so on. 
+In this continual learning paradigm, we treat each dataset independently. This approach is analogous to the shuffled label method used in vision tasks~\cite{}. For each dataset, we define a sequence of tasks through a series of label permutations. Specifically, for a given dataset, we permute the labels for the first task, which the model then learns. For subsequent tasks, we use the same dataset with different permutations of the labels and this continues until end of the learning. 
+
+
+\paragraph{Sequential datasets:}
+% In this type of the continual learning, we consider a sequence of the datasets as a sequence of the tasks. In this way, we will have dataset one, dataset two,  ..., dataset five, dataset one, dataset two, ... and so on. 
+In this continual learning paradigm, we treat a sequence of datasets as a sequence of tasks. This involves using dataset one, followed by dataset two, and so on up to dataset five, before repeating the sequence from dataset one. This repeats forever.
+
+using the common head for type two.
+
+put figure to explain them
+
+\paragraph{Type of the Networks:}
+To investigate the behavior of plasticity, we conduct experiments using different types of networks. These include ``Bert-transformer'', ``MLP'', ``Conv'', ``LSTM'', ``Multi-head Attention layer'',  ``Multi-head Attention layer with residual connection'', and ``one Bert-layer without dropout''.  
+Except for the \textit{BERT-Transformer}, all other networks consist of three layers: the first layer is an embedding layer, and the last layer is a classifier layer. The middle layer corresponds to the specific type of network being tested. We keep the number of hidden units the same across them and equal to $50$.We chose this setting to simplify the neural networks and investigate plasticity in NLP tasks .
+
+
+
+
 \begin{itemize}
-    \item What is the datasets,
-    \item  models,
-    \item CL setup: number of tasks,
+    % \item What is the datasets,
+    % \item  models,
+    % \item CL setup: number of tasks,
     \item optimizers, hyper-param setup (details about the grid search over lr).
-    \item Random label ( 100\%, 50\%, 20\%)
+    % \item Random label ( 100\%, 50\%, 20\%)
 \end{itemize}
 Also, mention why did you choose this particular setup.
 
@@ -17,35 +39,131 @@ Also, mention why did you choose this particular setup.
 pretrain model,
 
 \subsubsection{Effect of pre-training - pre trained bert}
+\autoref{fig:nlp_bert_pretrained}
 \begin{itemize}
     \item Bert Model (pre-trained and no-pretrained)
     \item is that because of pretrained and non-pretrained
     \item is that because of transformers?
-          % \item is that because of scale?
+    datasets % \item is that because of scale?
 \end{itemize}
 % --- is that because of pretrained and non-pretrained 
 
 % --- is that because of transformers
 
+\begin{figure*}[htb!]
+    \centering
+    \resizebox{\textwidth}{!}{  
+    \includegraphics[width=0.3\textwidth]{figs/Accuracy/nlp/bert_pretrained/amazon_review_full_40.pdf}
+    \includegraphics[width=0.3\textwidth]{figs/Accuracy/nlp/bert_pretrained/yahoo_answers_40.pdf}
+    \includegraphics[width=0.3\textwidth]{figs/Accuracy/nlp/bert_pretrained/yelp_review_full_40.pdf}
+    % \includegraphics[width=0.24\textwidth]{figs/Accuracy/nlp/bert_pretrained/dbpedia_40.pdf}
+    }
+    \\
+    \resizebox{\textwidth}{!}{  
+    \includegraphics[width=0.3\textwidth]{figs/Accuracy/nlp/bert/amazon_review_full_40.pdf}
+    \includegraphics[width=0.3\textwidth]{figs/Accuracy/nlp/bert/yahoo_answers_40.pdf}
+    \includegraphics[width=0.3\textwidth]{figs/Accuracy/nlp/bert/yelp_review_full_40.pdf}
+    % \includegraphics[width=0.24\textwidth]{figs/Accuracy/nlp/bert/dbpedia_40.pdf}
+    }
+    \caption{Accuracy of BERT pretrained vs non-pretrained on NLP datasets.}
+    \label{fig:nlp_bert_pretrained}
+\end{figure*}
+
+
 \subsection{Ablations/Intervention/Analysis}
 
 \subsubsection{Experiments for other type of networks: CNN, LSTM}
+\autoref{fig:nlp_cnn_lstm}
 \begin{itemize}
-    \item CNN on NLP results. Is there plasticity loss?
-    \item LSTM on NLP results. Is there plasticity loss?
+    \item CNN on NLP results. Is there plasticity loss? 
+    \item LSTM on NLP results. Is there plasticity loss? 
 \end{itemize}
+
+\begin{figure*}[htb!]
+    \centering
+    \resizebox{\textwidth}{!}{  
+    \includegraphics[width=0.3\textwidth]{figs/Accuracy/nlp/cnn/ag_news_50.pdf}
+    \includegraphics[width=0.3\textwidth]{figs/Accuracy/nlp/cnn/yahoo_answers_50.pdf}
+    \includegraphics[width=0.3\textwidth]{figs/Accuracy/nlp/cnn/yelp_review_full_50.pdf}
+    }
+    \\
+    \resizebox{\textwidth}{!}{  
+    \includegraphics[width=0.3\textwidth]{figs/Accuracy/nlp/lstm/ag_news_50.pdf}
+    \includegraphics[width=0.3\textwidth]{figs/Accuracy/nlp/lstm/yahoo_answers_50.pdf}
+    \includegraphics[width=0.3\textwidth]{figs/Accuracy/nlp/lstm/yelp_review_full_50.pdf}
+    }
+    \caption{Accuracy of CNN and LSTM on NLP datasets.}
+    \label{fig:nlp_cnn_lstm}
+\end{figure*}
+
+Analysis: \autoref{fig:yahoo_models_analysis}
+\begin{figure*}[htb!]
+    \centering
+    \resizebox{\textwidth}{!}{  
+    \includegraphics[width=0.15\textwidth]{figs/WeightNorm/nlp/cnn/yahoo_answers_50.pdf}
+    \includegraphics[width=0.15\textwidth]{figs/WeightNorm/nlp/lstm/yahoo_answers_50.pdf}
+    \includegraphics[width=0.15\textwidth]{figs/WeightNorm/nlp/attention/yahoo_answers_40.pdf}
+    \includegraphics[width=0.15\textwidth]{figs/WeightNorm/nlp/bert/yahoo_answers_40.pdf}
+    \includegraphics[width=0.15\textwidth]{figs/WeightNorm/nlp/bert_pretrained/yahoo_answers_40.pdf}
+    }
+    \resizebox{\textwidth}{!}{  
+    \includegraphics[width=0.15\textwidth]{figs/Dormancy/nlp/cnn/yahoo_answers_50.pdf}
+    \includegraphics[width=0.15\textwidth]{figs/Dormancy/nlp/lstm/yahoo_answers_50.pdf}
+    \includegraphics[width=0.15\textwidth]{figs/Dormancy/nlp/attention/yahoo_answers_40.pdf}
+    \includegraphics[width=0.15\textwidth]{figs/Dormancy/nlp/bert/yahoo_answers_40.pdf}
+    \includegraphics[width=0.15\textwidth]{figs/Dormancy/nlp/bert_pretrained/yahoo_answers_40.pdf}
+    }
+    \caption{Analysis of different models on Yahoo Answers datasets.}
+    \label{fig:yahoo_models_analysis}
+\end{figure*}
+
+
 
 \subsection{Comparison with vision}
 
-???
+\autoref{fig:image_models}
+\begin{figure*}[t]
+    \centering
+    \resizebox{\textwidth}{!}{  
+    % \includegraphics[width=0.24\textwidth]{figs/Accuracy/image/cnn/cifar10_50.pdf}
+    \includegraphics[width=0.24\textwidth]{figs/Accuracy/image/lstm/cifar10_50.pdf}
+    \includegraphics[width=0.24\textwidth]{figs/Accuracy/image/attention/cifar10_40.pdf}
+    \includegraphics[width=0.24\textwidth]{figs/Accuracy/image/attention_residual/cifar10_40.pdf}
+    }
+    \caption{Accuracy of different models on CIFAR10.}
+    \label{fig:image_models}
+\end{figure*}
+
 
 
 \subsubsection{self-attention vs MLP}
+
+\autoref{fig:nlp_self_res}
 \begin{itemize}
     \item Self Attention Layer (Embedding + Multi-head Attention layer + Classifier)
     \item Self Attention Layer  with Residual Layer
     \item Bert Layer( Layer Norm and dropout)
 \end{itemize}
+
+
+\begin{figure*}[t]
+    \centering
+    \resizebox{\textwidth}{!}{  
+    % \includegraphics[width=0.24\textwidth]{figs/Accuracy/nlp/attention/amazon_review_full_40.pdf}
+    \includegraphics[width=0.24\textwidth]{figs/Accuracy/nlp/attention/ag_news_40.pdf}
+    \includegraphics[width=0.24\textwidth]{figs/Accuracy/nlp/attention/yahoo_answers_40.pdf}
+    \includegraphics[width=0.24\textwidth]{figs/Accuracy/nlp/attention/yelp_review_full_40.pdf}
+    }
+    \\
+    \resizebox{\textwidth}{!}{      
+    % \includegraphics[width=0.24\textwidth]{figs/Accuracy/nlp/attention_residual/amazon_review_full_40.pdf}
+    \includegraphics[width=0.24\textwidth]{figs/Accuracy/nlp/attention_residual/ag_news_40.pdf}
+    \includegraphics[width=0.24\textwidth]{figs/Accuracy/nlp/attention_residual/yahoo_answers_40.pdf}
+    \includegraphics[width=0.24\textwidth]{figs/Accuracy/nlp/attention_residual/yelp_review_full_40.pdf}
+    }
+    \caption{Accuracy of Self attenstion and residual layers on NLP datasets.}
+    \label{fig:nlp_self_res}
+\end{figure*}
 
 
 
