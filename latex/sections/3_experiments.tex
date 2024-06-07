@@ -6,7 +6,13 @@ We consider five different NLP datasets. They are ``ag news'', ``dbpedia'', ``ya
 
 \paragraph{Individual task-shuffled label:}
 % In this type of the continual learning, we consider each individual dataset separately. This is corresponding to shuffled label in vision tasks~\cite{}. For each of them, we define a sequence of tasks as a sequence of new label assignment. Basically, for the given dataset, we permute the labels for the first task, then the model will learn it. Then for the second task we use the same dataset and permute its label and so on. 
-In this continual learning paradigm, we treat each dataset independently. This approach is analogous to the shuffled label method used in vision tasks~\cite{}. For each dataset, we define a sequence of tasks through a series of label permutations. Specifically, for a given dataset, we permute the labels for the first task, which the model then learns. For subsequent tasks, we use the same dataset with different permutations of the labels and this continues until end of the learning.
+In this continual learning paradigm, we treat each dataset independently. This approach
+is analogous to the shuffled label method used in vision tasks~\cite{}. For each
+dataset, we define a sequence of tasks through a series of label permutations.
+Specifically, for a given dataset, we permute the labels for the first task, then the
+model trains on that for $100$ epochs, again we change the permutation and train for
+$100$ epochs. For subsequent tasks, we use the same dataset with different permutations
+of the labels and this continues until end of the learning.
 
 
 \paragraph{Sequential datasets:}
@@ -74,7 +80,7 @@ The first experiment we conducted focused on the ability of continual learning, 
 
 % \subsection{Ablations/Intervention/Analysis}
 
-\subsection{Experiments for other type of networks: CNN, LSTM}
+\subsection{Experiments for other type of networks: MLP, CNN, and LSTM}
 
 To further explore plasticity in NLP datasets, we conducted experiments using various types of networks, including MLP, CNN, and LSTM.
 
@@ -83,13 +89,19 @@ To further explore plasticity in NLP datasets, we conducted experiments using va
 
 For the CNN experiments with NLP datasets, the network maintains plasticity when using the Adam and AdamW optimizers, but it loses the plasticity with SGD, \autoref{fig:nlp_cnn}. This contrasts with the results for image datasets~\cite{plasticity papers}, as we also demonstrated for CIFAR-10. For image datasets, the network is unable to learn new tasks after a while, even when using Adam and AdamW.
 
+<<<<<<< HEAD
 \autoref{fig:nlp_lstnm} shows the learning curves for the LSTM network. Both \textit{Individual tasks-shuffled label} and \textit{Sequential datasets} maintain plasticity. Surprisingly, in this case, with CIFAR-10 LSTM also has plasticity and the performance does not decrease.
+=======
+\autoref{fig:nlp_lstm} shows the learning curves for the LSTM network. Both \textit{Individual tasks-shuffled label} and \textit{Sequential datasets} maintain plasticity. Surprisingly, in this case, with CIFAR-10 LSTM also has plasticity and the performance does not decrease. For all cases SGD can not learn the new tasks but Adam and AdamW are able to.
+
+\autoref{fig:nlp_cnn_lstm}
+>>>>>>> 4d3df71cb231d8480178fdc55c26a26c6dfcaf76
 
 
-% Surprisingly, as shown in \autoref{fig:nlp_lstnm}, in LSTM network, 
 
 % add ---> \autoref{fig:nlp_mlp} 5 for each data and one for cifar
 
+<<<<<<< HEAD
 \autoref{fig:nlp_cnn_lstm}
 \begin{itemize}
     \item CNN on NLP results. Is there plasticity loss?
@@ -101,17 +113,43 @@ For the CNN experiments with NLP datasets, the network maintains plasticity when
 --> mention that we only look at training in this scenario not test or validation and this is different from catastrophic forgetting
 
 \begin{figure*}[htb!]
+\centering
+\resizebox{\textwidth}{!}{
+    \includegraphics[width=\textwidth]{figs/Accuracy/nlp/cnn/dbpedia_50.pdf}
+    \includegraphics[width=\textwidth]{figs/Accuracy/nlp/cnn/yahoo_answers_50.pdf}
+    \includegraphics[width=\textwidth]{figs/Accuracy/nlp/cnn/yelp_review_full_50.pdf}
+}
+\\
+\resizebox{\textwidth}{!}{
+\includegraphics[width=\textwidth]{figs/Accuracy/nlp/lstm/dbpedia_50.pdf}
+\includegraphics[width=\textwidth]{figs/Accuracy/nlp/lstm/yahoo_answers_50.pdf}
+\includegraphics[width=\textwidth]{figs/Accuracy/nlp/lstm/yelp_review_full_50.pdf}
+=======
+
+% \begin{itemize}
+%     \item CNN on NLP results. Is there plasticity loss? 
+%     \item LSTM on NLP results. Is there plasticity loss? 
+% \end{itemize}
+
+
+
+% --> mention that we only look at training in this scenario not test or validation and this is different from catastrophic forgetting 
+
+\begin{figure*}[htb!]
     \centering
     \resizebox{\textwidth}{!}{
+        \includegraphics[width=\textwidth]{figs/Accuracy/nlp/cnn/ag_news_50.pdf}
         \includegraphics[width=\textwidth]{figs/Accuracy/nlp/cnn/dbpedia_50.pdf}
         \includegraphics[width=\textwidth]{figs/Accuracy/nlp/cnn/yahoo_answers_50.pdf}
         \includegraphics[width=\textwidth]{figs/Accuracy/nlp/cnn/yelp_review_full_50.pdf}
     }
     \\
     \resizebox{\textwidth}{!}{
+        \includegraphics[width=\textwidth]{figs/Accuracy/nlp/lstm/ag_news_50.pdf}
         \includegraphics[width=\textwidth]{figs/Accuracy/nlp/lstm/dbpedia_50.pdf}
         \includegraphics[width=\textwidth]{figs/Accuracy/nlp/lstm/yahoo_answers_50.pdf}
         \includegraphics[width=\textwidth]{figs/Accuracy/nlp/lstm/yelp_review_full_50.pdf}
+        >>>>>>> 4d3df71cb231d8480178fdc55c26a26c6dfcaf76
     }
     \caption{Accuracy of CNN and LSTM on NLP datasets.}
     \label{fig:nlp_cnn_lstm}
@@ -148,14 +186,29 @@ Analysis: \autoref{fig:yahoo_models_analysis}
 
 \subsection{Comparison with vision}
 
+comparing criteria:
+1- we can bring side by side plots from one of the nlp tasks vs image
+
+2- bring sgd vs adam and adamw
+
+
 \autoref{fig:image_models}
 \begin{figure*}[t]
     \centering
+    <<<<<<< HEAD
+    \resizebox{\textwidth}{!}{
+    % \includegraphics[width=\textwidth]{figs/Accuracy/image/cnn/cifar10_50.pdf}
+    \includegraphics[width=\textwidth]{figs/Accuracy/image/lstm/cifar10_50.pdf}
+    \includegraphics[width=\textwidth]{figs/Accuracy/image/attention/cifar10_40.pdf}
+    \includegraphics[width=\textwidth]{figs/Accuracy/image/attention_residual/cifar10_40.pdf}
+    =======
     \resizebox{\textwidth}{!}{
         % \includegraphics[width=\textwidth]{figs/Accuracy/image/cnn/cifar10_50.pdf}
         \includegraphics[width=\textwidth]{figs/Accuracy/image/lstm/cifar10_50.pdf}
         \includegraphics[width=\textwidth]{figs/Accuracy/image/attention/cifar10_40.pdf}
         \includegraphics[width=\textwidth]{figs/Accuracy/image/attention_residual/cifar10_40.pdf}
+        \includegraphics[width=\textwidth]{figs/Accuracy/image/bert_layer/cifar10_40.pdf}
+        >>>>>>> 4d3df71cb231d8480178fdc55c26a26c6dfcaf76
     }
     \caption{Accuracy of different models on CIFAR10.}
     \label{fig:image_models}
@@ -163,14 +216,22 @@ Analysis: \autoref{fig:yahoo_models_analysis}
 
 
 
-\subsubsection{self-attention vs MLP}
+\subsection{Multi-head-Attention types of the Networks}
+
+In this section, we developed experiments with the networks that have Multi-head Attention layer. The reason was to investigate whether the attention structure will change the plasticity ability. To do so, we designed three type of networks with attention as following:
 
 \autoref{fig:nlp_self_res}
+
 \begin{itemize}
-    \item Self Attention Layer (Embedding + Multi-head Attention layer + Classifier)
-    \item Self Attention Layer  with Residual Layer
-    \item Bert Layer( Layer Norm and dropout)
+    \item \textit{Multi-head Attention Layer}: the networks comprises of one Embedding, Multi-head Attention layer and one classifier respectively.
+    \item \textit{Multi-head Attention Layer with Residual Layer}: the networks is the same as above with a difference that we add input to the output of the attention layer and then feed it to the classifier.
+    \item \textit{Bert Layer}: the network is the same as one Bert layer without using any dropout.
 \end{itemize}
+
+Note that we considered \textit{Multi-head Attention Layer with Residual Layer} to investigate if a direct stream from input will affect the plasticity.
+Also we removed dropout from \textit{Bert Layer} since dropout is one of the solutions to maintain plasticity in images~\cite{}
+
+
 
 
 \begin{figure*}[t]
@@ -198,6 +259,26 @@ Analysis: \autoref{fig:yahoo_models_analysis}
 
     \caption{Accuracy of Self attenstion, Self attenstion with residual layer, and one BERT layer on NLP datasets.}
     \label{fig:nlp_self_res}
+\end{figure*}
+
+
+\subsection{Data distributions}
+\autoref{fig:5nlp_models}
+
+\begin{figure*}[t]
+    \centering
+    \resizebox{\textwidth}{!}{
+        \includegraphics[width=\textwidth]{figs/Accuracy/5nlp/mlp/5data_50.pdf}
+        \includegraphics[width=\textwidth]{figs/Accuracy/5nlp/cnn/5data_50.pdf}
+        \includegraphics[width=\textwidth]{figs/Accuracy/5nlp/lstm/5data_50.pdf}
+    }\\
+    \resizebox{\textwidth}{!}{
+        \includegraphics[width=\textwidth]{figs/Accuracy/5nlp/attention/5data_40.pdf}
+        \includegraphics[width=\textwidth]{figs/Accuracy/5nlp/attention_residual/5data_40.pdf}
+        \includegraphics[width=\textwidth]{figs/Accuracy/5nlp/bert_layer/5data_40.pdf}
+    }
+    \caption{Accuracy of different models on 5 NLP dataset.}
+    \label{fig:5nlp_models}
 \end{figure*}
 
 
