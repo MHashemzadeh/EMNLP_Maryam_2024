@@ -1,11 +1,56 @@
 \section{Introduction}
 
 
-\begin{itemize}
-    \item The importance of plasticity in deep learning.
-    \item Application of that in real world , etc
-    \item Overall categorization of what the literature did : their questions and solutions
-    \item What is the gap here
-    \item what we did
-    \item Our contribution
-\end{itemize}
+% \begin{itemize}
+%     \item The importance of plasticity in deep learning.
+%     \item Application of that in real world , etc
+%     \item Overall categorization of what the literature did : their questions and solutions
+%     \item What is the gap here
+%     \item what we did
+%     \item Our contribution
+% \end{itemize}
+
+Neural networks have shown remarkable success in the last few years, with Large Language
+Models (LLMs) becoming the backbone for numerous real-world applications \citep{}. As
+the world these systems are trying to model changes, the most prevailing approach to
+adapt to these changes is to simply retrain the network from scratch on the new data.
+The training of these models from scratch, however, can be quite expensive \citep{},
+which has motivated the study of methods able to update these models continually, with changing data distributions, a
+field known as \emph{continual} or \emph{lifelong} learning. This ability is critical to
+allow systems to be able to adapt to the dynamic nature of the world they are trying to
+model.
+
+One challenge that has been observed when neural networks train on changing, i.e.
+\emph{nonstationary}, data distributions is an eventual loss of ability to fit the new
+data distributions. This phenomenon, seen in both supervised \citep{} and reinforcement
+learning \citep{}, is referred to as \emph{loss of plasticity}. The degradation in the
+network's training ability has been shown to be robust to factors such as learning
+rates, optimizers, and even classes of architectures.
+Recent works have
+investigated both the causes of plasticity loss \citep{} as well as mitigation measures
+such as regularization \citep{}, modified architectures \citep{}, or partial parameter resets \citep{} can be used
+to slow down or eliminate plasticity loss.
+
+With all the work that has been done on plasticity, however, comes one caveat:
+essentially every work has focused on settings with image input or low level state
+information. In reinforcement learning, where nonstationarity arises naturally
+as a consequence of the solution methods used, plasticity loss has been explored usually
+in Atari or Deepmind Control environments that train with images or low level state
+information. In supervised learning settings, prior works take image datasets such as
+MNIST, CIFAR10, or Imagenet, and create the nonstationarity by transforming the datasets
+or by training on different subsets of the datasets. These settings are difficult enough
+to induce plasticity loss across Multilayer Perceptrons (MLPs), Convolutional Neural
+Networks (CNNs), and even Vision
+Transformers (ViTs), when not using plasticity preservation methods.
+To our knowledge, however, there is no work that investigates whether loss of plasticity occurs
+and to what extent when using natural language inputs. Our work begins this investigation
+in the context of natural language classification.
+
+Specifically, we take natural language classification datasets that have been used in
+prior lifelong learning works to try to induce plasticity loss. Our exploration finds
+that, across several different architectures and datasets, although there are some
+hyperparameter settings where plasticity loss occurs, when
+we set a good learning rate and optimizer, \emph{there is no noticeable plasticity
+    loss}. This is a significant negative result as it implies that one of the major
+challenges that the lifelong community is grappling with may not be a problem when using
+the language modality.
